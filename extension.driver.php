@@ -83,32 +83,26 @@
 
 				$page = $context['oPage'];
 
-				$form = $page->Form;
+				$controls = $page->Controls;
 
 				$button_wrap = new XMLElement('div');
 				$button_wrap->setAttribute('id', 'save-and');
 
 				if ($shouldAddReturn) {
 					// add return button in wrapper
-					$button_return = $this->createButton('save-and-return', 'Save & return');
+					$button_return = $this->createButton('save-and-return', 'Save & return', '<svg height="15" width="15" class="icon"  fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" x="0px" y="0px"><path d="M4.08,9.38a1,1,0,0,0,.22.33l4,4A1,1,0,0,0,10,13V10h4a4,4,0,0,1,0,8H11a1,1,0,0,0,0,2h3A6,6,0,0,0,14,8H10V5a1,1,0,0,0-1.71-.71l-4,4a1,1,0,0,0-.22,1.09Z"></path></svg>');
 					$hidden_return = $this->createHidden('save-and-return-h');
 
-					$button_wrap->appendChild(Widget::SVGIconContainer(
-						'save',
-						$button_return
-					));
+					$button_wrap->appendChild($button_return);
 					$button_wrap->appendChild($hidden_return);
 				}
 
 				if ($shouldAddNew) {
 					// add the new button
-					$button_new = $this->createButton('save-and-new', 'Save & new');
+					$button_new = $this->createButton('save-and-new', 'Save & new', '<svg height="10" width="10" class="icon"  fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><path d="M41.4,58.6l0.1,27.9c-0.1,4.7,3.8,8.6,8.5,8.5c4.8,0.1,8.6-3.8,8.6-8.5V58.6h27.8c4.7,0.1,8.6-3.8,8.6-8.6  c0-4.7-3.8-8.5-8.6-8.5H58.6V13.6C58.6,8.8,54.8,5,50,5c-4.7,0-8.6,3.8-8.5,8.6v27.9H13.6C8.8,41.5,5,45.3,5,50  c0,4.8,3.8,8.7,8.6,8.6H41.4z"></path></svg>');
 					$hidden_new = $this->createHidden('save-and-new-h');
 
-					$button_wrap->appendChild(Widget::SVGIconContainer(
-						'save',
-						$button_new
-					));
+					$button_wrap->appendChild($button_new);
 					$button_wrap->appendChild($hidden_new);
 				}
 
@@ -124,7 +118,7 @@
 				$button_wrap->appendChild($qs_hidden);
 
 				// add content to the right div
-				$div_action = $this->getChildrenWithClass($form, 'div', 'actions');
+				$div_action = $this->getChildrenWithClass($controls, 'div', 'actions');
 
 				// if there is no fields, div_action may not be there
 				if ($div_action != null) {
@@ -133,14 +127,13 @@
 			}
 		}
 
-		private function createButton($id, $value) {
-			$btn = new XMLElement('input', null, array(
+		private function createButton($id, $value, $icon) {
+			$btn = new XMLElement('button', Widget::SVGIcon('save') . $icon, array(
 				'id' => $id,
 				'name' => 'action[save]',
-				'value' => __($value),
+				'title' => __($value),
 				'type' => 'submit'
 			));
-			$btn->setSelfClosingTag(true);
 
 			return $btn;
 		}

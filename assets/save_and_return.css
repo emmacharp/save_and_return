@@ -1,16 +1,45 @@
-body.inline.subsection #save-and {
+body.inline.subsection [id="save-and"] {
 	display: none;
 	visibility: collapse;
 }
 
-@media (max-width: 1023px) {
-	#save-and {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
+@media screen and (min-width: 1240px) {
+	[id="controls"] [id="save-and"]>*:not(:last-of-type) {
+		margin-bottom: 0;
 	}
 
-	#save-and > * + * {
-		margin-left: 1rem;
+	[id="save-and"]>*:first-child {
+		margin-top: calc(-1 * var(--standard-outer-rhythm));
 	}
 }
+
+[id="save-and"] button {
+	background-color: inherit;
+}
+
+[id="save-and"] button .icon {
+	position: absolute;
+	background-color: inherit;
+	border-radius: 50%;
+	width: initial;
+	height: initial;
+}
+
+[id="save-and"] button svg:not(.icon) {
+	opacity: .5;
+}
+
+[id="save-and-new"] .icon {
+	top: 4px;
+	left: 1px;
+	transform: translateX(-50%);
+	padding: 2px;
+}
+
+[id="save-and-return"] .icon {
+	top: 4px;
+	left: 2px;
+	transform: translateX(-50%);
+	padding: 1px;
+}
+
